@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="h1"> {if $error_code}{$error_code}. {/if}
+        {if $error_message}{$error_message}{else}[s`Error`]{/if}</div>
+    <div class="text-center container-shadow-box">
+        {if $error_code}
+            <strong class="error-code">{$error_code}</strong> {/if}
+        <p>[s`The requested resource is not available.`]</p>
+        {if $theme_settings.logo_link}<a href="{$theme_settings.logo_link}">{else}
+            <p><a href="{$wa_app_url}" class="btn">{/if}[`Go to home page`]</a></p>
+    </div>
+</div>

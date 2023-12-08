@@ -1,0 +1,56 @@
+{strip}
+    {if $wa->currentUrl() == $wa_app_url && (empty($page.id) && empty($page.content))}
+        <div class="container">
+            <h1>[`Welcome to your new site!`]</h1>
+            <div class="container-shadow-box">{sprintf('[`Start by <a href="%s">creating a page</a> in your site backend.`]', $wa_backend_url|cat:'site/#/pages/')}</div>
+        </div>
+    {else}
+        {* Breadcrumbs *}
+        {include file="breadcrumb.html" inline}
+
+        <div class="row">
+            <div class="col-12 col-4-md col-3-lg">
+                {if $shop_pages = $wa->site->pages()}
+
+                    {function shop_pages_p}
+                        {foreach $items as $item}
+                            {if empty($item.hide)}
+                                <li class="{if !empty($item.childs)}tree{/if}{if $page.id == $item.id} selected{/if}">
+                                    <a href="{$item.url}" title="{$item.name|escape}">{$item.name}</a>
+                                    {if !empty($item.childs)}
+                                        <ul>
+                                            {shop_pages_p items=$item.childs}
+                                        </ul>
+                                    {/if}
+                                </li>
+                            {/if}
+                        {/foreach}
+                    {/function}
+                    <ul class="menu-t static">
+                        {*  <li class="header">[`Pages`]</li> *}
+                        {shop_pages_p items=$shop_pages}
+                    </ul>
+                {/if}
+            </div>
+            <div class="col-12 col-8-md col-9-lg">
+                <h1 class="category-name">{$page.name}</h1>
+                {$subpages = $wa->site->pages($page.id)}
+                {if $subpages}
+                    <ul class="pages-nav">
+                        {foreach $subpages as $p}
+                            <li><a href="{$p.url}">{$p.name}</a></li>
+                            {if !$p@last}
+                                <li class="separator">|</li>
+                            {/if}
+                        {/foreach}
+                    </ul>
+                {/if}
+                {if $page.content}
+                    <div class="page-content">
+                        {$page.content}
+                    </div>
+                {/if}
+            </div>
+        </div>
+    {/if}
+{/strip}
