@@ -1,1 +1,1 @@
-https://Alex-vvhite.github.io/themes/hypermarket/index.html
+https://Alex-vvhite.github.io/themes/hypermarket/index
